@@ -1,0 +1,22 @@
+<!doctype html>
+<!-- Global: portable preview for the inline fragment; local: supply a minimal standalone theme. -->
+<!-- Sources: https://developer.mozilla.org/en-US/docs/Web/CSS/system-color and /Web/CSS/color-scheme . -->
+<html lang="en">
+<head>
+  <meta charset="utf-8"> <!-- Preserve mathematical symbols in the standalone document. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Use real phone-sized layout coordinates. -->
+  <title>Exercise 3 · Gauge transformation</title> <!-- Identify the browser tab and saved file. -->
+  <style>
+    :root { color-scheme: light dark; --background: Canvas; --foreground: CanvasText; --border: color-mix(in srgb, CanvasText 22%, Canvas); --viz-series-1: light-dark(#175da8, #80baff); } /* Match the user's system appearance. */
+    body { margin: 24px auto; padding: 0 16px; max-width: 1000px; background: var(--background); color: var(--foreground); font: 16px/1.5 system-ui, sans-serif; } /* Keep the portable chart readable without a UI framework. */
+    h2 { font-size: 1.25rem; font-weight: 500; } /* Avoid competing with the plots. */
+    .form-label { display: block; } /* Put the current value immediately above its slider. */
+    .form-range { width: 100%; min-height: 32px; } /* Retain native keyboard and touch behavior. */
+    .tabular-nums { font-variant-numeric: tabular-nums; } /* Prevent slider values from shifting the label width. */
+    @media (pointer: coarse) { .form-range { min-height: 44px; } } /* Keep the native interaction usable on touch screens. */
+  </style>
+</head>
+<body>
+  <main>__FRAGMENT__</main> <!-- Insert the same inline source rather than maintaining a second visualization. -->
+</body>
+</html>

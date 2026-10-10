@@ -46,5 +46,5 @@ def sample_fields(settings: Settings) -> Samples:
     difference = second-first  # Reuse endpoints instead of duplicating the gradient formula.
     spacing = float(axis[1]-axis[0])  # Grid spacing controls a readable maximum arrow length.
     maximum = float(np.max(np.linalg.norm(difference, axis=-1)))  # This field bounds both endpoints and their interpolation.
-    scale = maximum/(0.75*spacing) if maximum else 1.0  # Zero fields avoid division by zero and remain visibly empty.
+    scale = maximum/(1.2*spacing) if maximum else 1.0  # Keep small-screen arrows readable while each Cartesian component stays inside the half-spacing padding.
     return Samples(x, y, first, second, difference, gauge_scalar(x, y, settings.b), settings.b, settings.extent+spacing/2, scale)  # Share arrays without resampling.
