@@ -1,0 +1,10 @@
+{
+  "cases": 15,
+  "grid_points_per_case": 289,
+  "tolerance": 1e-10,
+  "maximum_absolute_errors": {
+    "curl": 0.0,
+    "gradient": 0.0,
+    "circulation": 0.0
+  }
+}
