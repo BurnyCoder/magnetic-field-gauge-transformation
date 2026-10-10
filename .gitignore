@@ -1,0 +1,19 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Local configuration and reproducible caches never belong in the remote repository.
+.env
+.env.*
+!.env.example
+.pytest_cache/
+logs/
+test-results/
+.browser-cache/
