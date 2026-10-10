@@ -24,7 +24,7 @@ def verify_fields(output):
         dy, dx = np.gradient(gauge_scalar(x, y, b), axis, axis, edge_order=2)  # Differentiate s independently of A'-A.
         gradient = np.stack((dx, dy, np.zeros_like(x)), axis=-1)  # Restore Cartesian component order.
         residuals["gradient"] = max(residuals["gradient"], float(np.max(np.abs(potential(x, y, b, 1)-potential(x, y, b, 0)-gradient))))  # Check the gauge's sign.
-        for gauge in (0, 0.25, 0.5, 0.75, 1):  # Verify the interpolation, not just the exercise endpoints.
+        for gauge in (0, 0.25, 0.5, 0.75, 1):  # Verify intermediate gauges as well as both endpoints.
             field = potential(x, y, b, gauge)  # Evaluate the implemented potential family.
             curl = np.gradient(field[..., 1], axis, axis=1)-np.gradient(field[..., 0], axis, axis=0)  # Compute curl z from sampled derivatives.
             residuals["curl"] = max(residuals["curl"], float(np.max(np.abs(curl-b))))  # The expected magnetic field is exactly b.

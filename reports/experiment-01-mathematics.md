@@ -28,9 +28,9 @@ and are documented separately rather than retroactively replacing this result.
 ## Learning and choice
 
 The continuous family gives the slider a direct mathematical interpretation.
-Its midpoint is the symmetric gauge, making the screenshot's discussion of
-rotational symmetry visible. We chose this family because it connects the
-actual exercise endpoints without adding another physical model.
+Its midpoint is the symmetric gauge, making rotational symmetry visible.
+We chose this family because it connects the two potentials directly without
+adding another physical model.
 
 The mathematical convention and invariant closed-loop integral were checked
 against [MIT's solution, page 6](https://web.mit.edu/8.286/www/quiz22/q3sols-euf22.pdf).

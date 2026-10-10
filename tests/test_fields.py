@@ -1,4 +1,4 @@
-"""Global: protect Exercise 3's physics before plotting is implemented.
+"""Global: protect the gauge transformation physics before plotting is implemented.
 
 Local: check explicit endpoints and independent derivatives/integrals.
 Sources: https://numpy.org/doc/stable/reference/generated/numpy.gradient.html
@@ -13,11 +13,11 @@ from gauge_fields.fields import gauge_scalar, potential  # These are the public 
 
 @pytest.mark.parametrize("b", [-2.0, 0.0, 1.0])  # Reverse, remove, and restore the field.
 def test_endpoints_and_midpoint(b):
-    """Global: anchor the slider to the exercise; local: compare exact components."""
+    """Global: anchor the slider to both potentials; local: compare exact components."""
     x, y = np.array([-2.0, 0.0, 1.0]), np.array([1.0, 0.0, -2.0])  # Include both signs and the origin.
     zero = np.zeros_like(x)  # All three gauges have zero z component.
-    np.testing.assert_allclose(potential(x, y, b, 0), np.stack((zero, b*x, zero), axis=-1))  # Equation (8).
-    np.testing.assert_allclose(potential(x, y, b, 1), np.stack((-b*y, zero, zero), axis=-1))  # Equation (9).
+    np.testing.assert_allclose(potential(x, y, b, 0), np.stack((zero, b*x, zero), axis=-1))  # The first potential.
+    np.testing.assert_allclose(potential(x, y, b, 1), np.stack((-b*y, zero, zero), axis=-1))  # The second potential.
     np.testing.assert_allclose(potential(x, y, b, 0.5), np.stack((-b*y/2, b*x/2, zero), axis=-1))  # Symmetric gauge.
 
 

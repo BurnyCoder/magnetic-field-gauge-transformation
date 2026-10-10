@@ -1,7 +1,7 @@
 """Global: one source of field samples for static and interactive presentations.
 
-Local: implement the screenshot's potentials and their scalar gauge function.
-Sources: docs/source-extract.md; https://web.mit.edu/8.286/www/quiz22/q3sols-euf22.pdf;
+Local: implement two vector potentials and their scalar gauge function.
+Sources: docs/reference-text.md; https://web.mit.edu/8.286/www/quiz22/q3sols-euf22.pdf;
 https://numpy.org/doc/stable/reference/generated/numpy.meshgrid.html .
 """
 
@@ -13,7 +13,7 @@ from gauge_fields.config import Settings  # Sampling consumes the shared validat
 
 
 def potential(x, y, b=1.0, gauge=0.0):
-    """Global: connect both exercise potentials; local: return A + gauge*grad(-bxy)."""
+    """Global: connect both showcase potentials; local: return A + gauge*grad(-bxy)."""
     x, y = np.broadcast_arrays(np.asarray(x, dtype=float), np.asarray(y, dtype=float))  # Align scalar and array coordinates.
     return np.stack((-gauge*b*y, (1-gauge)*b*x, np.zeros_like(x)), axis=-1)  # The final dimension holds (Ax, Ay, Az).
 
@@ -29,8 +29,8 @@ class Samples:
 
     x: np.ndarray  # Horizontal sample positions.
     y: np.ndarray  # Vertical sample positions.
-    first: np.ndarray  # Equation (8), the slider's starting potential.
-    second: np.ndarray  # Equation (9), the slider's ending potential.
+    first: np.ndarray  # The slider's starting potential, (0,bx,0).
+    second: np.ndarray  # The slider's ending potential, (-by,0,0).
     difference: np.ndarray  # The connecting gradient, computed from those endpoints.
     scalar: np.ndarray  # Scalar samples for contours beneath the gradient.
     b: float  # The invariant perpendicular magnetic field.
@@ -42,7 +42,7 @@ def sample_fields(settings: Settings) -> Samples:
     """Global: synchronize both renderers; local: sample once and derive a common geometric scale."""
     axis = np.linspace(-settings.extent, settings.extent, settings.points)  # Include both boundaries and the origin.
     x, y = np.meshgrid(axis, axis)  # Columns correspond to x, rows to y.
-    first, second = potential(x, y, settings.b, 0), potential(x, y, settings.b, 1)  # Evaluate the exact exercise endpoints.
+    first, second = potential(x, y, settings.b, 0), potential(x, y, settings.b, 1)  # Evaluate the two exact gauge endpoints.
     difference = second-first  # Reuse endpoints instead of duplicating the gradient formula.
     spacing = float(axis[1]-axis[0])  # Grid spacing controls a readable maximum arrow length.
     maximum = float(np.max(np.linalg.norm(difference, axis=-1)))  # This field bounds both endpoints and their interpolation.

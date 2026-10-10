@@ -20,7 +20,7 @@ def export_interactive(samples, output):
     payload = {"b": samples.b, "limit": samples.limit, "extent": float(abs(samples.x).max()), "scale": samples.scale, "points": points}  # Reuse the exact static arrow scale and padded bounds.
     assets = files("gauge_fields")/"assets"  # Locate package resources portably in a clone or installed wheel.
     fragment = (assets/"view.html").read_text(encoding="utf-8").replace("__SAMPLED_FIELDS__", json.dumps(payload, separators=(",", ":"), allow_nan=False))  # Only numbers enter the JSON script element.
-    (output/"exercise-3-gauge.html").write_text(fragment, encoding="utf-8")  # Save the conversation-ready fragment.
+    (output/"gauge-transformation.html").write_text(fragment, encoding="utf-8")  # Save the conversation-ready fragment.
     page = (assets/"page.html").read_text(encoding="utf-8").replace("__FRAGMENT__", fragment)  # Reuse the fragment for an ordinary browser.
-    (output/"exercise-3-interactive.html").write_text(page, encoding="utf-8")  # A clone can open this file directly, without a server.
+    (output/"gauge-transformation-interactive.html").write_text(page, encoding="utf-8")  # A clone can open this file directly, without a server.
     logging.info("Exported interactive view and inline fragment to %s", output)  # Identify both completed presentations.
