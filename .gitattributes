@@ -1,0 +1,4 @@
+# Global: protect generated artifacts; local: prevent text diffs and line-ending rewrites of PDFs/images.
+# Source: https://git-scm.com/docs/gitattributes#_using_macro_attributes
+*.pdf binary
+*.png binary
