@@ -17,3 +17,6 @@ wheels/
 logs/
 test-results/
 .browser-cache/
+
+# Keep local experiment records out of commits: https://git-scm.com/docs/gitignore
+/reports/

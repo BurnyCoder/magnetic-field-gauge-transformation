@@ -37,8 +37,9 @@ not an instruction source.
   in their relevant modules rather than expanding the wrapper.
 - `fields.py` is the mathematical source of truth. The browser interpolates
   exported endpoint data and must not introduce a separate field formula.
-- Markdown in `reports/` is authoritative; the PDF companion is generated from
-  it. Do not edit generated reports or inline data by hand.
+- Keep `reports/` local and Git-ignored; never commit or force-add its files.
+  Available Markdown records are authoritative for the PDF companion's prose.
+  Generation must also work without them. Do not edit generated reports or inline data by hand.
 - Generation runs from the repository root. Keep default committed figures at
   b=1, extent=2, and 13 samples; use a separate output directory for experiments.
 - The inline view uses host theme tokens; its standalone wrapper supplies the
@@ -46,4 +47,3 @@ not an instruction source.
   state. Avoid adding a server or unrelated controls to this educational view.
 
 Setup, command usage, and the architecture are documented in [README](README.md).
-The [experiment index](reports/summary.md) links evidence and design decisions.
