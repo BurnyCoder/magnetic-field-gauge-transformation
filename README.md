@@ -31,7 +31,7 @@ uv sync --locked
 uv run gauge-fields
 ```
 
-The generator must run from the repository root so it can read `reports/`.
+Run the generator from the repository root to resolve `.env` and optional local reports.
 Internet access is needed for initial dependency installation. The interactive
 file loads pinned D3 7.9.0 from jsDelivr; its chart needs access to that CDN.
 PNG, PDF, source documentation, and Python calculations work offline once their
@@ -67,15 +67,21 @@ runs the common arrow scale can change to keep figures readable.
 | [Scientific figure: vector PDF](outputs/gauge-transformation-fields.pdf) | Scalable figure for printing or reuse. |
 | [Interactive view](outputs/gauge-transformation-interactive.html) | Portable browser file with native keyboard support and a responsive slider. Download/open it locally; GitHub does not execute HTML previews. |
 | `outputs/gauge-transformation.html` | The same interactive source as a fragment for conversation rendering. |
-| [PDF companion](outputs/gauge-transformation-report.pdf) | Experiment summary, individual records, acceptance evidence when present, and the current figure. |
+| [PDF companion](outputs/gauge-transformation-report.pdf) | The current figure, preceded by available local experiment records. |
 | [Numerical evidence](outputs/validation.json) | Actual maximum residuals from the independent validation phase. |
 | `logs/generate-*.log` | Timestamped UTC generation phases, warnings, and exceptions, also streamed to the terminal. |
 
 Generated default artifacts are committed for immediate reading. Running the
 command replaces artifacts with the same names in the selected output directory.
-Raw logs, browser captures, caches, and `.venv` are local and ignored; curated
-experiment evidence lives in [reports](reports/summary.md). PDF metadata and log
-timestamps naturally differ between runs.
+Raw logs, browser captures, caches, `.venv`, and `reports/` are local and ignored
+by Git. PDF metadata and log timestamps naturally differ between runs.
+
+Experiment records are optional and are not included in new clones. To include
+local evidence in the PDF companion, create `reports/summary.md`,
+`reports/experiment-*.md`, and/or `reports/verification.md`. Available records
+appear in that order, with experiments sorted by filename. Without records,
+generation still produces all artifacts; the companion contains only the current
+figure. The existing committed companion is a snapshot of previously recorded evidence.
 
 ## Architecture and technologies
 
@@ -87,7 +93,7 @@ flowchart TD
     Entry --> Fields[NumPy: shared field samples and arrow scale]
     Fields --> Static[Matplotlib: four-panel PNG and vector PDF]
     Fields --> Interactive[HTML and D3: potential slider plus invariant B]
-    Reports[Markdown experiment records] --> Paper[markdown-it-py and ReportLab]
+    Reports[Optional local Markdown experiment records] --> Paper[markdown-it-py and ReportLab]
     Static --> Paper
     Paper --> PDF[PDF companion]
 ```
@@ -118,9 +124,8 @@ console records under `logs/browser-*.log`.
 
 Tests cover the two endpoints, symmetric midpoint, connecting gradient,
 constant curl, magnetic flux/circulation, invalid settings, shared export data,
-PDF content, keyboard use, unchanged B geometry, and phone-sized layouts. See
-[the experiment record](reports/summary.md) for methods, failures, fixes, and
-measured results; [AGENTS.md](AGENTS.md) defines repository maintenance rules.
+PDF content with and without local records, keyboard use, unchanged B geometry,
+and phone-sized layouts. [AGENTS.md](AGENTS.md) defines repository maintenance rules.
 
 ## Sources
 
