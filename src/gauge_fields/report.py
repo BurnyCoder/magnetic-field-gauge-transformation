@@ -7,6 +7,7 @@ https://docs.reportlab.com/reportlab/userguide/ch5_platypus/ .
 
 import logging  # Include PDF generation in the same observable pipeline.
 from pathlib import Path  # Read repository-owned Markdown sources.
+from urllib.parse import urljoin  # Resolve report links to portable, authenticated repository URLs.
 from xml.sax.saxutils import escape, quoteattr  # Escape source text before using ReportLab's XML-like inline markup.
 
 import matplotlib  # Reuse its bundled Unicode fonts without system-specific font installation.
@@ -18,13 +19,14 @@ from reportlab.pdfbase.ttfonts import TTFont  # DejaVu covers the mathematical s
 from reportlab.platypus import Image, PageBreak, Paragraph, SimpleDocTemplate, Spacer  # Delegate pagination and line wrapping to ReportLab.
 
 
-def inline_text(children):
+def inline_text(children, source):
     """Global: preserve report meaning safely; local: translate only the inline markup the reports use."""
     pieces = []  # Build markup in a list so escaping and structural tags stay separate.
     tags = {"strong_open": "<b>", "strong_close": "</b>", "em_open": "<i>", "em_close": "</i>", "link_close": "</a>", "softbreak": " ", "hardbreak": "<br/>"}  # Map Markdown structure onto ReportLab-supported tags.
     for child in children or []:  # An empty paragraph has no inline children.
         if child.type == "link_open":  # Quote URLs independently from display text.
-            pieces.append(f'<a href={quoteattr(child.attrGet("href") or "")}>')  # Preserve documented source links.
+            target = urljoin("https://github.com/BurnyCoder/curl/blob/main/"+source.as_posix(), child.attrGet("href") or "")  # Keep relative experiment links usable when the PDF is downloaded alone.
+            pieces.append(f'<a href={quoteattr(target)}>')  # Preserve documented external links and safely quote the resolved destination.
         elif child.type in tags:  # Structural tokens must not be rendered as literal text.
             pieces.append(tags[child.type])  # Reuse the small explicit vocabulary.
         else:  # Ordinary text and inline code are both escaped, including angle brackets and ampersands.
@@ -43,7 +45,7 @@ def markdown_blocks(path, styles):
         elif token.type == "list_item_open":  # Each listed experiment needs an explicit bullet.
             bullet = True  # Apply the marker to the next inline block only.
         elif token.type == "inline":  # Let ReportLab handle wrapping after inline tokens are translated.
-            story.append(Paragraph(inline_text(token.children), style, bulletText="•" if bullet else None))  # Create real text, not screenshots of prose.
+            story.append(Paragraph(inline_text(token.children, path), style, bulletText="•" if bullet else None))  # Create real text and portable source links, not screenshots of prose.
             bullet = False  # Avoid repeating a bullet on subsequent paragraphs.
     return story  # Supply flowables to the PDF document builder.
 

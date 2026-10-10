@@ -32,8 +32,9 @@ and [Playwright's evaluation contract](https://playwright.dev/python/docs/evalua
 
 ## Result and learning
 
-Final browser and full-pipeline results are recorded in the repository's final
-verification record. The failure showed why a test harness needs inspection as
+The browser-only rerun passed all three field-sign cases in 12.53 seconds;
+the subsequent full run passed 37 tests. The [acceptance record](verification.md)
+lists the inspected evidence. The failure showed why a test harness needs inspection as
 well as the product. Independent endpoint data checks and native keyboard
 interaction complement the geometric measurements. We keep the browser's field
 formulas out of the renderer: interpolation reuses the Python-generated samples.

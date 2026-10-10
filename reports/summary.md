@@ -19,6 +19,7 @@ and corrections without treating finite numerical samples as a proof.
 - [Experiment 1](experiment-01-mathematics.md): exploratory central-difference check.
 - [Experiment 2](experiment-02-static.md): test-driven physics and scientific exports.
 - [Experiment 3](experiment-03-browser.md): native slider interaction and responsive rendering.
+- [Acceptance and review](verification.md): completed checks, corrections, and explicit limits.
 
 The PDF companion assembles this summary, the individual experiment records,
 and the generated four-panel figure from their existing sources. It is a local
