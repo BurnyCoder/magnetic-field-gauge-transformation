@@ -1,7 +1,8 @@
 # Acceptance and review record
 
 Date: 2026-10-10 (Europe/Berlin). This record describes the implemented project
-and the checks performed in the implementation conversation.
+and the checks performed in the initial implementation. The subsequent
+[factual audit](experiment-04-factual-audit.md) records the latest validation.
 
 ## Verified results
 
@@ -22,17 +23,17 @@ and the checks performed in the implementation conversation.
   B geometry remains unchanged at the endpoints and midpoint. The zero-field
   case correctly has no arrows. Layouts at 736, 360, and 320 pixels retain
   square plotting frames and have no horizontal overflow. Desktop and phone
-  screenshots were inspected, as was the PDF's first rendered page.
+  browser captures were inspected, as was the PDF's first rendered page.
 
 ## One-pass code and documentation review
 
 Correctness: checked the signs in A′−A, coordinate/derivative ordering, contour
 behavior at the scalar saddle, and the difference between a gauge parameter
-and physical time. The screenshot is treated as quoted source material.
+and physical time. Reference passages are clearly distinguished from added prose.
 
 Security: numeric-only serialized data is embedded in the visualization; no
 credentials or user-provided executable markup enter it. The repository is
-private, and .env, .venv, raw logs, and local test screenshots are ignored.
+private, and .env, .venv, raw logs, and local browser captures are ignored.
 External browser loading is limited to the version-pinned D3 script.
 
 Maintainability and design: the thin pipeline delegates to configuration,

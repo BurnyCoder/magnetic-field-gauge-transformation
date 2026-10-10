@@ -12,11 +12,11 @@ and fixed sampled endpoints should support this without a backend.
 
 The generator embeds its existing endpoint samples in the browser view.
 Chromium opens the generated local file, uses End and Home keys to reach the
-exercise endpoints, and applies 50 ArrowRight presses to reach λ=0.50.
+two endpoint potentials, and applies 50 ArrowRight presses to reach λ=0.50.
 The check compares all potential arrow paths and the complete B-symbol group.
 It then inspects equal aspect and horizontal overflow at widths 736, 360,
 and 320 pixels. Runs cover b=-1,0,1; zero field is expected to remain empty.
-Browser screenshots and timestamped console logs are kept locally in ignored
+Browser captures and timestamped console logs are kept locally in ignored
 evidence directories.
 
 ## Issues and corrections

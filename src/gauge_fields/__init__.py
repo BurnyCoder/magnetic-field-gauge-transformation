@@ -1,1 +1,1 @@
-"""Global: Exercise 3 visualization package; local: imports have no side effects."""
+"""Global: gauge transformation showcase; local: imports have no side effects."""

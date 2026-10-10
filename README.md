@@ -1,20 +1,21 @@
-# Exercise 3: different potentials, the same magnetic field
+# Gauge transformation showcase
 
 ## Methodology and use
 
-This project turns the supplied electromagnetism exercise into scientific plots
-and a gauge slider. It calculates both vector potentials on one xy grid, checks
+This showcase demonstrates how different vector potentials describe the same
+magnetic field through scientific plots and an interactive gauge slider. It
+calculates both vector potentials on one xy grid, checks
 their common curl and circulation independently, and renders the same samples
-in static and interactive views. The [worked explanation](docs/explanation.md)
-shows why different arrows describe the same magnetic field; the
-[screenshot transcription](docs/source-extract.md) keeps quoted source text separate.
+in static and interactive views. The [step-by-step explanation](docs/explanation.md)
+shows why the potential arrows can change while their curl stays fixed;
+[reference passages](docs/reference-text.md) keep quoted text separate.
 
 From a clone, run `uv sync --locked`, then **`uv run gauge-fields`**. Open
-`outputs/exercise-3-interactive.html` in a browser and move its slider with the
-mouse, touch, or keyboard. Home/End select the exercise's endpoints; arrow keys
+`outputs/gauge-transformation-interactive.html` in a browser and move its slider with the
+mouse, touch, or keyboard. Home/End select the two endpoint potentials; arrow keys
 change the gauge in steps of 0.01. At 0.50 the potential is rotationally symmetric.
 
-![The two potentials, their connecting gradient, and the common magnetic field](outputs/exercise-3-fields.png)
+![Gauge transformation showcase: two potentials, their connecting gradient, and the common magnetic field](outputs/gauge-transformation-fields.png)
 
 ## Install and reproduce
 
@@ -24,8 +25,8 @@ and creates `.venv` in this directory. The lockfile fixes Python dependency
 versions. No API key or service account is required to generate the artifacts.
 
 ```bash
-git clone https://github.com/BurnyCoder/curl.git
-cd curl
+git clone https://github.com/BurnyCoder/magnetic-field-gauge-transformation.git
+cd magnetic-field-gauge-transformation
 uv sync --locked
 uv run gauge-fields
 ```
@@ -62,17 +63,17 @@ runs the common arrow scale can change to keep figures readable.
 
 | Artifact | Purpose |
 | --- | --- |
-| [Scientific figure: PNG](outputs/exercise-3-fields.png) | Four panels comparing the two potentials, their gradient difference, and B. |
-| [Scientific figure: vector PDF](outputs/exercise-3-fields.pdf) | Scalable figure for printing or reuse. |
-| [Interactive view](outputs/exercise-3-interactive.html) | Portable browser file with native keyboard support and a responsive slider. Download/open it locally; GitHub does not execute HTML previews. |
-| `outputs/exercise-3-gauge.html` | The same interactive source as a fragment for conversation rendering. |
-| [PDF companion](outputs/exercise-3-report.pdf) | Experiment summary, individual records, acceptance evidence when present, and the current figure. |
+| [Scientific figure: PNG](outputs/gauge-transformation-fields.png) | Four panels comparing the two potentials, their gradient difference, and B. |
+| [Scientific figure: vector PDF](outputs/gauge-transformation-fields.pdf) | Scalable figure for printing or reuse. |
+| [Interactive view](outputs/gauge-transformation-interactive.html) | Portable browser file with native keyboard support and a responsive slider. Download/open it locally; GitHub does not execute HTML previews. |
+| `outputs/gauge-transformation.html` | The same interactive source as a fragment for conversation rendering. |
+| [PDF companion](outputs/gauge-transformation-report.pdf) | Experiment summary, individual records, acceptance evidence when present, and the current figure. |
 | [Numerical evidence](outputs/validation.json) | Actual maximum residuals from the independent validation phase. |
 | `logs/generate-*.log` | Timestamped UTC generation phases, warnings, and exceptions, also streamed to the terminal. |
 
 Generated default artifacts are committed for immediate reading. Running the
 command replaces artifacts with the same names in the selected output directory.
-Raw logs, browser screenshots, caches, and `.venv` are local and ignored; curated
+Raw logs, browser captures, caches, and `.venv` are local and ignored; curated
 experiment evidence lives in [reports](reports/summary.md). PDF metadata and log
 timestamps naturally differ between runs.
 
@@ -112,7 +113,7 @@ Minimal Linux installations may need Playwright's documented
 Browser checks use a separate headless Chromium instance; they do not attach to
 a personal browser. They also need the D3 CDN. Test artifacts are generated in
 pytest temporary directories, so negative and zero field tests do not overwrite
-the default deliverables. Screenshots are saved under `test-results/` and browser
+the default deliverables. Browser captures are saved under `test-results/` and browser
 console records under `logs/browser-*.log`.
 
 Tests cover the two endpoints, symmetric midpoint, connecting gradient,
@@ -123,7 +124,7 @@ measured results; [AGENTS.md](AGENTS.md) defines repository maintenance rules.
 
 ## Sources
 
-- [User-supplied screenshot](docs/source/exercise-3.png): Exercise 3 and the quoted explanation; book metadata is not visible.
+- [Reference passages](docs/reference-text.md): quoted descriptions of gauge freedom and the uniform-field example.
 - [MIT electromagnetism solutions, page 6](https://web.mit.edu/8.286/www/quiz22/q3sols-euf22.pdf): gauge invariance and closed-loop circulation.
 - [Matplotlib quiver](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.quiver.html), [NumPy gradient](https://numpy.org/doc/stable/reference/generated/numpy.gradient.html), and [D3 selections](https://d3js.org/d3-selection): numerical/rendering APIs.
 - [uv projects](https://docs.astral.sh/uv/guides/projects/), [python-dotenv](https://bbc2.github.io/python-dotenv/), and [Python logging](https://docs.python.org/3/howto/logging.html): reproducible setup and diagnostics.

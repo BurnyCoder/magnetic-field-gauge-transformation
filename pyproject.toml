@@ -1,7 +1,7 @@
 [project]
 name = "gauge-fields"
 version = "0.1.0"
-description = "Reproducible plots and gauge transformations for Exercise 3"
+description = "Gauge transformation showcase with reproducible plots and an interactive slider"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

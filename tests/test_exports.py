@@ -17,22 +17,22 @@ from gauge_fields.fields import potential  # Establish agreement between the pub
 def test_generated_artifacts(generated):
     """Global: deliver genuine files; local: validate image, vector PDF, JSON, and endpoint samples."""
     output, b = generated  # Inspect one complete user-style generation run.
-    with Image.open(output/"exercise-3-fields.png") as image:  # Decode the exported image to catch corruption.
+    with Image.open(output/"gauge-transformation-fields.png") as image:  # Decode the exported image to catch corruption.
         assert image.size == (1980, 1800)  # The intended four-panel figure has sufficient resolution.
         image.verify()  # Ask Pillow to verify the entire encoded stream.
-    document = PdfReader(output/"exercise-3-fields.pdf")  # Verify the static export is a real PDF.
+    document = PdfReader(output/"gauge-transformation-fields.pdf")  # Verify the static export is a real PDF.
     assert len(document.pages) == 1 and len(document.pages[0].images) == 0  # The requested scientific PDF stays vector-based.
     validation = json.loads((output/"validation.json").read_text())  # Read actual residuals rather than a success flag.
     assert max(validation["maximum_absolute_errors"].values()) <= validation["tolerance"]  # Enforce the documented numeric standard.
-    fragment = (output/"exercise-3-gauge.html").read_text()  # Inspect the inline artifact produced by the same command.
+    fragment = (output/"gauge-transformation.html").read_text()  # Inspect the inline artifact produced by the same command.
     match = re.search(r'<script type="application/json" id="gauge-samples">(.*?)</script>', fragment, re.S)  # Select only numeric embedded samples.
     assert match, "Missing shared sample data"  # A view without data cannot reproduce the model.
     data = json.loads(match.group(1))  # JSON parsing rejects malformed payloads before browser interaction.
     assert data["b"] == b and len(data["points"]) == 169  # Match the full 13 by 13 grid and configured field strength.
     for point in data["points"]:  # Compare every endpoint, not a single hand-picked arrow.
-        np.testing.assert_allclose(point["first"], potential(point["x"], point["y"], b, 0)[:2])  # Equation (8) remains the slider origin.
-        np.testing.assert_allclose(point["second"], potential(point["x"], point["y"], b, 1)[:2])  # Equation (9) remains the slider destination.
+        np.testing.assert_allclose(point["first"], potential(point["x"], point["y"], b, 0)[:2])  # The first potential remains the slider origin.
+        np.testing.assert_allclose(point["second"], potential(point["x"], point["y"], b, 1)[:2])  # The second potential remains the slider destination.
     assert "__SAMPLED_FIELDS__" not in fragment and len(fragment.encode()) < 1_000_000  # Ensure substitution and the inline size contract.
-    report = PdfReader(output/"exercise-3-report.pdf")  # The companion must contain real, extractable experiment prose.
+    report = PdfReader(output/"gauge-transformation-report.pdf")  # The companion must contain real, extractable experiment prose.
     text = "\n".join(page.extract_text() for page in report.pages)  # Inspect every page, including the figure appendix.
     assert all(heading in text for heading in ("Abstract", "Experiment 1", "Experiment 3", "Generated field comparison"))  # Catch silently omitted report sections.

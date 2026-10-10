@@ -39,11 +39,11 @@ def draw_potential(axis, samples, field, title):
 def export_static(samples: Samples, output: Path) -> None:
     """Global: create the downloadable deliverable; local: compose and save all four panels."""
     figure, axes = plt.subplots(2, 2, figsize=(11, 10), layout="constrained")  # Give each vector field enough room to read.
-    figure.suptitle("Exercise 3 · Different potentials, the same magnetic field", fontsize=17)  # State the physical comparison.
+    figure.suptitle("Gauge transformation showcase", fontsize=17)  # Name the physical concept demonstrated by the comparison.
     for axis in axes.flat:  # All fields use the same spatial coordinate convention.
         format_axes(axis, samples)  # Reuse one formatting routine to prevent aspect or limit drift.
-    draw_potential(axes[0, 0], samples, samples.first, r"$\mathbf{A}=(0,bx,0)$")  # Vertical shear in Equation (8).
-    draw_potential(axes[0, 1], samples, samples.second, r"$\mathbf{A}'=(-by,0,0)$")  # Horizontal shear in Equation (9).
+    draw_potential(axes[0, 0], samples, samples.first, r"$\mathbf{A}=(0,bx,0)$")  # The first potential has vertical arrows.
+    draw_potential(axes[0, 1], samples, samples.second, r"$\mathbf{A}'=(-by,0,0)$")  # The second potential has horizontal arrows.
     draw_potential(axes[1, 0], samples, samples.difference, r"$\nabla s=\mathbf{A}'-\mathbf{A}$,  $s=-bxy$")  # Plot the gradient which changes the gauge.
     if samples.b:  # A constant zero scalar has no meaningful contour family.
         levels = np.linspace(-0.75*np.max(np.abs(samples.scalar)), 0.75*np.max(np.abs(samples.scalar)), 7)  # Choose symmetric contour values for either sign of b.
@@ -63,7 +63,7 @@ def export_static(samples: Samples, output: Path) -> None:
     magnetic.text(0.5, 0.025, f"b = {samples.b:g} · {direction}", transform=magnetic.transAxes, ha="center", fontsize=10, bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.9})  # Explain symbols without comparing B's units to A's.
     figure.supxlabel("z = 0 · shared arrow scale for A, A′ and ∇s · orange squares: circulation loops", fontsize=10)  # Clarify the slice and the scale convention.
     for extension in ("png", "pdf"):  # Keep a screen-friendly image and a publication-friendly vector file.
-        path = output/f"exercise-3-fields.{extension}"  # Deterministic names make README links stable.
+        path = output/f"gauge-transformation-fields.{extension}"  # Deterministic names make README links stable.
         figure.savefig(path, dpi=180, facecolor="white")  # Matplotlib keeps the PDF geometry vector-based.
         logging.info("Exported static figure: %s", path)  # Record each completed artifact.
     plt.close(figure)  # Release resources during tests and repeated generation.

@@ -5,7 +5,7 @@ Date: 2026-10-10 (Europe/Berlin).
 ## Question and hypothesis
 
 Can one small implementation produce comparable plots without losing the
-exercise's field signs, gradient relation, or circulation? Shared coordinates,
+model's field signs, gradient relation, or circulation? Shared coordinates,
 equal aspect, and a fixed arrow scale should preserve meaningful comparisons.
 
 ## Method and evidence
