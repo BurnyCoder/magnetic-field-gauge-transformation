@@ -82,7 +82,8 @@ Checking directly, \(\nabla(-bxy+C)=(-by,-bx,0)\), so adding this gradient to
 \((0,bx,0)\) gives \((-by,0,0)\). The arbitrary constant contributes no gradient.
 The third plot shows this connecting gradient over scalar contours. For
 \(b\ne0\) and the displayed choice \(C=0\), the exact \(s=0\) contour
-is the pair of coordinate axes. At \(b=0\), \(s=0\) throughout the plane.
+is the pair of coordinate axes. At \(b=0\), the scalar is constant,
+\(s=C\); it is zero throughout the plane only for the displayed choice \(C=0\).
 
 ## 4. Why straight arrows can have curl
 
@@ -107,7 +108,7 @@ the vertical sides contribute zero. Consequently
 \]
 
 Dividing by the square's area gives \(b\) for both. Here the curl is constant,
-so this is exact at any square size. Moving the square changes the individual
+so this is exact at any square size. Moving the square can change the individual
 side contributions, but the total remains \(bL^2\). The gradient adds zero
 closed-loop circulation: \(\oint\nabla s\cdot d\boldsymbol\ell=0\), because
 the loop returns to the same value of the single-valued function \(s\).
@@ -122,7 +123,9 @@ The slider chooses a dimensionless number \(\lambda\) between 0 and 1:
 \]
 
 At 0 it is the first potential; at 1 it is the second. At 1/2 it becomes
-\(\frac12(-by,bx,0)=\frac12\mathbf B\times\mathbf r\), the symmetric gauge.
+\(\frac12(-by,bx,0)=\frac12\mathbf B\times\mathbf r\), where
+\(\mathbf r=(x,y,z)\). This is the [symmetric gauge](https://www.damtp.cam.ac.uk/user/tong/aqm/solid1.pdf),
+which is rotationally symmetric about the z axis through the origin.
 For every slider position,
 
 \[
@@ -154,8 +157,10 @@ conventions, the [general electromagnetic transformation](https://web.mit.edu/8.
 is \(\mathbf A'=\mathbf A+\nabla s\) together with
 \(\phi'=\phi-\partial s/\partial t\), preserving both electric and magnetic
 fields. Here \(\partial s/\partial t=0\), so \(\phi\) remains unchanged.
-Equality of magnetic fields alone would not establish equality of electric
-fields in a general time-dependent situation.
+The magnetic field alone does not determine the electric field, even in a
+static situation: \(\mathbf E=-\nabla\phi\) can differ if \(\phi\) is
+changed independently. In this showcase, \(\phi\) is held fixed and every
+potential is time-independent, so the gauge change preserves both fields.
 
 ## Reading the figures honestly
 
