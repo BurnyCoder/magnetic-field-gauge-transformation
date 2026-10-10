@@ -20,6 +20,7 @@ and corrections without treating finite numerical samples as a proof.
 - [Experiment 2](experiment-02-static.md): test-driven physics and scientific exports.
 - [Experiment 3](experiment-03-browser.md): native slider interaction and responsive rendering.
 - [Experiment 4](experiment-04-factual-audit.md): factual audit and showcase presentation.
+- [Experiment 5](experiment-05-precision-audit.md): independent recheck of physical assumptions and references.
 - [Acceptance and review](verification.md): completed checks, corrections, and explicit limits.
 
 The PDF companion assembles this summary, the individual experiment records,
