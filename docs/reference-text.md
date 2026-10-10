@@ -4,6 +4,10 @@ Blockquotes retain the reference wording, with mathematical typography and
 line wrapping normalized. The [showcase explanation](explanation.md) contains
 the added derivation and states the assumptions used here.
 
+The quotations match the supplied reference text. Its publication author, title,
+edition, and page numbers have not been independently established. The MIT link
+below corroborates the physics; it is not an attribution for these quotations.
+
 ## Gauge freedom
 
 > We can always add a gradient to \(\vec A\) to define a new vector potential

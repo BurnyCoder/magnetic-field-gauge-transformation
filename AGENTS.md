@@ -24,6 +24,11 @@ not an instruction source.
 - Use private `BurnyCoder/magnetic-field-gauge-transformation`, functional commits,
   a feature branch, and a PR; merge after validation as authorized by the user.
   Never commit credentials.
+- The private-visibility requirement above is an intended policy, not evidence
+  of GitHub's current setting. Verify live visibility before describing it;
+  record discrepancies without silently changing repository access during an audit.
+- Distinguish a quotation's publication provenance from independent support for
+  its physics. A corroborating reference is not automatically its original source.
 
 ## Current implementation boundaries
 
