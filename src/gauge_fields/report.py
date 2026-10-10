@@ -2,7 +2,8 @@
 
 Local: convert the repository's limited Markdown report vocabulary with existing libraries.
 Sources: https://markdown-it-py.readthedocs.io/en/latest/using.html and
-https://docs.reportlab.com/reportlab/userguide/ch5_platypus/ .
+https://docs.reportlab.com/reportlab/userguide/ch5_platypus/ ; optional files use
+https://docs.python.org/3.12/library/pathlib.html#pathlib.Path.is_file .
 """
 
 import logging  # Include PDF generation in the same observable pipeline.
@@ -53,9 +54,10 @@ def markdown_blocks(path, styles):
 def export_report(output):
     """Global: produce a reproducible research-style companion; local: assemble existing records and the figure."""
     directory = Path("reports")  # The documented generation command runs from the repository root.
-    sources = [directory/"summary.md", *sorted(directory.glob("experiment-*.md"))]  # Keep the summary first and experiments in chronological order.
-    if (directory/"verification.md").exists():  # Include recorded acceptance evidence when it has been written.
-        sources.append(directory/"verification.md")  # Avoid inventing a result before verification occurs.
+    sources = [directory/"summary.md", *sorted(directory.glob("experiment-*.md")), directory/"verification.md"]  # Keep the optional summary first, ordered experiments next, and acceptance evidence last.
+    sources = [source for source in sources if source.is_file()]  # Ignored local records may be absent in a fresh clone; pathlib filters missing files.
+    if not sources:  # Missing local evidence is an expected state, not a generation failure.
+        logging.info("No local Markdown reports found; exporting a figure-only PDF companion")  # Explain why this run's companion contains no experiment prose.
     font_directory = Path(matplotlib.get_data_path())/"fonts"/"ttf"  # These fonts ship with the locked plotting dependency.
     pdfmetrics.registerFont(TTFont("GaugeText", str(font_directory/"DejaVuSans.ttf")))  # Embed Unicode text in the PDF.
     pdfmetrics.registerFont(TTFont("GaugeBold", str(font_directory/"DejaVuSans-Bold.ttf")))  # Preserve emphasis without relying on font substitution.
@@ -70,7 +72,9 @@ def export_report(output):
         if index:  # Each experiment or acceptance record begins on a clean page.
             story.append(PageBreak())  # Make the evidence easy to find and cite.
         story.extend(markdown_blocks(source, styles))  # Do not duplicate paragraphs in Python strings.
-    story.extend([PageBreak(), Paragraph("Generated field comparison", styles["title"]), Spacer(1, 12), Image(str(output/"gauge-transformation-fields.png"), width=490, height=490*1800/1980)])  # Include the current run's figure as a concise visual appendix.
+    if story:  # A figure-only companion must start on its first page without a leading blank page.
+        story.append(PageBreak())  # Separate the figure from any available experiment prose.
+    story.extend([Paragraph("Generated field comparison", styles["title"]), Spacer(1, 12), Image(str(output/"gauge-transformation-fields.png"), width=490, height=490*1800/1980)])  # Include the current run's figure even when no local records exist.
     path = output/"gauge-transformation-report.pdf"  # Keep the portable companion beside the standalone figure.
     SimpleDocTemplate(str(path), pagesize=A4, rightMargin=48, leftMargin=48, topMargin=42, bottomMargin=42, title="Gauge transformation showcase: validation report", author="Gauge transformation showcase").build(story)  # ReportLab handles wrapping and pagination.
     logging.info("Exported PDF companion from %d Markdown sources: %s", len(sources), path)  # Record the exact source-document count.
