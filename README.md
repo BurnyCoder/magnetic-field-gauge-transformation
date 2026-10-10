@@ -19,9 +19,9 @@ change the gauge in steps of 0.01. At 0.50 the potential is rotationally symmetr
 
 ## Install and reproduce
 
-Requirements: [uv](https://docs.astral.sh/uv/getting-started/installation/), Git,
-and access to this private repository. uv provisions Python 3.12 when needed
-and creates `.venv` in this directory. The lockfile fixes Python dependency
+Requirements: [uv](https://docs.astral.sh/uv/getting-started/installation/) and Git.
+uv provisions Python 3.12 when needed and creates `.venv` in this directory.
+The lockfile fixes Python dependency
 versions. No API key or service account is required to generate the artifacts.
 
 ```bash

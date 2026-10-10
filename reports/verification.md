@@ -1,8 +1,8 @@
 # Acceptance and review record
 
 Date: 2026-10-10 (Europe/Berlin). This record describes the implemented project
-and the checks performed in the initial implementation. The subsequent
-[factual audit](experiment-04-factual-audit.md) records the latest validation.
+and the checks performed in the initial implementation. The
+[experiment index](summary.md) links subsequent audits and validation.
 
 ## Verified results
 
@@ -32,8 +32,10 @@ behavior at the scalar saddle, and the difference between a gauge parameter
 and physical time. Reference passages are clearly distinguished from added prose.
 
 Security: numeric-only serialized data is embedded in the visualization; no
-credentials or user-provided executable markup enter it. The repository is
-private, and .env, .venv, raw logs, and local browser captures are ignored.
+credentials or user-provided executable markup enter it. The .env, .venv,
+raw logs, and local browser captures are ignored. Repository visibility must
+be checked separately; the [later evidence audit](experiment-06-evidence-audit.md)
+records the observed GitHub setting.
 External browser loading is limited to the version-pinned D3 script.
 
 Maintainability and design: the thin pipeline delegates to configuration,
@@ -53,7 +55,7 @@ forms of evidence; they are not presented as interchangeable proofs.
 Git initially treated the ReportLab file as text because its initial bytes did
 not trigger binary detection, producing irrelevant PDF whitespace diagnostics.
 Explicit PDF/PNG binary attributes fix review and line-ending handling. PDF
-links to individual experiments now resolve to the private repository, so they
+links to individual experiments now resolve to the GitHub repository, so they
 remain meaningful when the PDF is downloaded separately. These are small
 review corrections; the prior physics and browser results still apply.
 
